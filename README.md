@@ -6,11 +6,15 @@
 ![alt text](https://raw.githubusercontent.com/jchart/jchart-chart/master/images/jchart_logo.gif "Jchart Logo")
 
 ![alt text](https://raw.githubusercontent.com/jchart/jchart-chart/master/images/qqq.png "Chart of QQQ")
-### Download and run in four steps
+### Download source, build and run in four steps
 1. git clone https://github.com/jchart/jchart-chart.git
 2. cd jchart-chart
 3. ./gradlew build
 4. java -jar build/libs/jchart-chart.jar
+
+### Or download the pre-built jar and run
+1. https://github.com/jchart/jchart-chart/blob/master/dist/jchart.jar
+2. java -jar jchart-chart.jar
 
 
 ### Chart Types

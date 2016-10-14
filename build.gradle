@@ -26,6 +26,11 @@ jar.doFirst{
    }
 }
 
+task copyDist(type: Copy) {
+   from "./build/libs/$jarName"
+   into "./dist"
+}
+
 task wrapper(type: Wrapper) {
   gradleVersion = '2.13'
 }
