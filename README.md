@@ -1,6 +1,6 @@
 # Jchart Stock Market Charting Software
 Created by Paul S. Russo paul.russo@jchart.com
-
+Twitter: @PaulSRuss @JchartUpdates
 
 ![alt text](https://raw.githubusercontent.com/jchart/jchart-chart/master/images/jchart_logo.gif "Jchart Logo")
 
