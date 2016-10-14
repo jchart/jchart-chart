@@ -62,7 +62,6 @@ public class Jchart implements TickerListener, JchartFrameDestroyer {
 
     
     public void destroyFrame() {
-        System.out.println("Jchart Exit");
         //_frmJchart.dispose();
         _frmJchart = null;
         _pnlJchartFloat = null;
