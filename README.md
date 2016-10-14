@@ -41,4 +41,4 @@
 * Shift F3 - Candle Stick Chart
 * Shift F4 - Area Chart
 * Shift F5 - Point and Figure Chart
-* SHift F12 - Average Directional Index - ADX
+* Shift F12 - Average Directional Index - ADX
