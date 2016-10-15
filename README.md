@@ -13,7 +13,7 @@
 4. java -jar build/libs/jchart-chart.jar
 
 ### Or download the pre-built jar and run
-1. https://github.com/jchart/jchart-chart/blob/master/dist/jchart.jar
+1. https://github.com/jchart/jchart-chart/raw/master/dist/jchart-chart.jar
 2. java -jar jchart-chart.jar
 
 
