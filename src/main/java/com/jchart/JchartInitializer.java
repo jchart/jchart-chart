@@ -16,7 +16,7 @@ import com.jchart.model.color.ColorScheme;
 import com.jchart.view.client.factory.GuiFactory;
 
 /**
- * Jchart - Financial Technical Analysis Software Author: Paul Russo 
+ * Jchart - Financial Technical Analysis Software Author: Paul Russo
  * CreationvDate: Jan 8, 2000
  */
 public class JchartInitializer {

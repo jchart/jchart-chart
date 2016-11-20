@@ -9,6 +9,6 @@ package com.jchart;
  */
 public interface JchartFrameDestroyer {
 
-	public void destroyFrame();
-	
+   public void destroyFrame();
+
 }

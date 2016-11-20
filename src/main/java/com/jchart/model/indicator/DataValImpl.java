@@ -8,8 +8,8 @@ package com.jchart.model.indicator;
  */
 public class DataValImpl extends DateValue {
 
-	public DataValImpl(int qListSize) {
-		super(qListSize);
-	}
+   public DataValImpl(int qListSize) {
+      super(qListSize);
+   }
 
 }

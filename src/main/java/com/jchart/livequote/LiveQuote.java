@@ -11,24 +11,28 @@ import com.jchart.model.Quote;
  */
 
 public class LiveQuote {
-	private Quote quote;
-	private String coname;
-	public Quote getQuote() {
-		return quote;
-	}
-	public String getConame() {
-		return coname;
-	}
-	public void setQuote(Quote quote) {
-		this.quote = quote;
-	}
-	public void setConame(String coname) {
-		this.coname = coname;
-	}
-	@Override
-	public String toString() {
-		return "LiveQuote [quote=" + quote + ", coname=" + coname + "]";
-	}
+   private Quote quote;
+   private String coname;
 
+   public Quote getQuote() {
+      return quote;
+   }
+
+   public String getConame() {
+      return coname;
+   }
+
+   public void setQuote(Quote quote) {
+      this.quote = quote;
+   }
+
+   public void setConame(String coname) {
+      this.coname = coname;
+   }
+
+   @Override
+   public String toString() {
+      return "LiveQuote [quote=" + quote + ", coname=" + coname + "]";
+   }
 
 }

@@ -8,6 +8,5 @@ package com.jchart.adapter.android;
  * @created May 27, 2011
  */
 public enum Orientation {
-	   VERTICAL,
-	   HORIZONTAL
+   VERTICAL, HORIZONTAL
 }

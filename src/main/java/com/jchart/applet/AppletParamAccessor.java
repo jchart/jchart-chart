@@ -9,7 +9,7 @@ package com.jchart.applet;
  */
 
 public interface AppletParamAccessor {
-	
-	String getParam(String strName);
+
+   String getParam(String strName);
 
 }

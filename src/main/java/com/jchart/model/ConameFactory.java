@@ -13,25 +13,27 @@ import java.util.Properties;
  */
 
 public class ConameFactory {
-	
-	private static Properties _conaneProps;
 
-	public void init() {
-		try {
-			_conaneProps = loadConameProps(this.getClass());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+   private static Properties _conaneProps;
 
-	public static String getConame(String ticker) {
-		String retval = null;
-		retval = _conaneProps.getProperty(ticker);
-		return retval;
-	}
-	public static Properties loadConameProps(Class<?> clazz) throws FileNotFoundException, IOException {
-		Properties retval = new Properties();
-		return retval;
-	}
+   public void init() {
+      try {
+         _conaneProps = loadConameProps(this.getClass());
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+   }
+
+   public static String getConame(String ticker) {
+      String retval = null;
+      retval = _conaneProps.getProperty(ticker);
+      return retval;
+   }
+
+   public static Properties loadConameProps(Class<?> clazz)
+         throws FileNotFoundException, IOException {
+      Properties retval = new Properties();
+      return retval;
+   }
 
 }
