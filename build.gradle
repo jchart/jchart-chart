@@ -1,0 +1,36 @@
+repositories {
+    mavenCentral()
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+def jarName = 'jchart-chart.jar' 
+
+def springVersion = '4.3.3.RELEASE'
+def junitVersion = '4.12'
+
+dependencies {
+  compile "org.springframework:spring-context:$springVersion"
+  testCompile "org.springframework:spring-test:$springVersion"
+  testCompile "junit:junit:$junitVersion"
+}
+
+jar.doFirst{
+  manifest {
+    attributes("Manifest-Version": "1.0",
+      "Created-By": "paul.russo@jchart.com",
+      "Specification-Title": "Jchart",
+      "Specification-Version": "2.0",
+      "Main-Class": "com.jchart.Jchart")
+   }
+}
+
+task copyDist(type: Copy) {
+   from "./build/libs/$jarName"
+   into "./dist"
+}
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '2.13'
+}
