@@ -43,6 +43,7 @@ public class YhooLiveQuoteRequest implements LiveQuoteRequest {
    private LiveQuote parseQuote(String quoteLine) throws ParseException {
       LiveQuote retval = new LiveQuote();
       StringTokenizer st = new StringTokenizer(quoteLine, ",");
+      int numTokens = st.countTokens();
       Quote quote = new Quote();
       quote.setOpen(Float.parseFloat(st.nextToken()));
       quote.setHi(Float.parseFloat(st.nextToken()));
@@ -50,6 +51,9 @@ public class YhooLiveQuoteRequest implements LiveQuoteRequest {
       quote.setClose(Float.parseFloat(st.nextToken()));
       quote.setVolume(Long.parseLong(st.nextToken()));
       String coname = st.nextToken().replaceAll("\"", "");
+      if (numTokens == 8) {
+         st.nextToken();
+      }
       Date date = _downloadDateFmt
             .parse(st.nextToken().trim().replaceAll("\"", ""));
       quote.setDate(date);
