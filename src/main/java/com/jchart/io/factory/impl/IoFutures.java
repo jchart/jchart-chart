@@ -35,9 +35,8 @@ public class IoFutures extends IoJchartBase implements IoFactoryIntr {
    private Map<String, FuturesDescr> _futuresTickerMap = new HashMap<String, FuturesDescr>();
    private static Properties _conameProps = new Properties();
 
-   public void init(String cgiDir, String tickerDir, boolean useCgi,
+   public void init(String tickerDir,
          String dataDir) {
-      super.init(cgiDir, tickerDir, useCgi, dataDir);
       try {
          readFuturesDescr();
       } catch (Exception e) {
@@ -97,9 +96,9 @@ public class IoFutures extends IoJchartBase implements IoFactoryIntr {
       return retval;
    }
 
-   private void readQuotes(BufferedReader br, QuoteDataModel quoteDataModel)
+   protected int readQuotes(BufferedReader br, QuoteDataModel quoteDataModel)
          throws IOException {
-      int numQuotes = 0;
+      int retval = 0;
 
       String inputLine = null;
       int i = 0;
@@ -118,7 +117,7 @@ public class IoFutures extends IoJchartBase implements IoFactoryIntr {
             quote = parseQuoteIn(inputLine);
             if (quote.getDate().getTime() != priorQuoteDt) { // no dups
                quoteDataModel.setQuoteIn(quote);
-               numQuotes++;
+               retval++;
                priorQuoteDt = quote.getDate().getTime();
             }
          } catch (Exception e) {
@@ -126,10 +125,11 @@ public class IoFutures extends IoJchartBase implements IoFactoryIntr {
             // just skip it
          }
 
-         if (numQuotes == QuoteDataModel.getMaxQuotes()) {
+         if (retval == QuoteDataModel.getMaxQuotes()) {
             break;
          }
       }
+      return retval;
    }
 
    protected Quote parseQuoteIn(String s) throws Exception {
@@ -190,4 +190,5 @@ public class IoFutures extends IoJchartBase implements IoFactoryIntr {
       String id;
       String descr;
    }
+
 }

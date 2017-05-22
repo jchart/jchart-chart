@@ -13,11 +13,14 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.StringTokenizer;
 
 import com.jchart.io.IoJchartBase;
 import com.jchart.model.JchartComposite;
+import com.jchart.model.JchartModelFacade;
 import com.jchart.model.Quote;
 import com.jchart.model.QuoteDataModel;
 
@@ -28,9 +31,8 @@ import com.jchart.model.QuoteDataModel;
  */
 public class IoGoogleImpl extends IoJchartBase {
 
-   private static String START_DATE = "startdate=Jan+01+1990&";
-   private static String BASE_URL = "http://finance.google.com/finance/historical?";// q=AA&startdate=Jan+01+1990&enddate=";
-   private DateFormat _downloadDateFmt = new SimpleDateFormat("yyyy-MM-dd");
+   // "http://finance.google.com/finance/historical?";// q=AA&startdate=Jan+01+1990&enddate=";
+   private DateFormat _downloadDateFmt = new SimpleDateFormat("dd-MMM-yy");
 
    @Override
    protected boolean getEodQuotes(String sbl, JchartComposite jchartComposite)
@@ -49,46 +51,35 @@ public class IoGoogleImpl extends IoJchartBase {
       endDate.append(currentDate.substring(2, 4)).append("+");
       endDate.append(currentDate.substring(4, 8)).append("+");
       // &enddate=Oct+3%2C+2008";
-      StringBuffer urlString = new StringBuffer();
-      urlString.append(BASE_URL).append("q=").append(sbl).append("&")
-            .append(START_DATE).append(endDate.toString())
-            .append("&output=csv");
+      String urlString = getEodUrlStr(sbl, QuoteDataModel.getMaxQuotes());
       URL url = new URL(urlString.toString());
-      InputStreamReader isrUrlFH = null;
-      BufferedReader brUrlFH = null;
       BufferedWriter bw = null;
-      InputStream is = null;
-      try {
-         is = url.openStream();
-         isrUrlFH = new InputStreamReader(is);
-         brUrlFH = new BufferedReader(isrUrlFH);
-         if (QuoteDataModel.saveQutoes() && (_dataDir != null)) {
-            String sblPath = _dataDir + sbl.substring(0, 1).toLowerCase()
-                  + File.separator + sbl.toLowerCase() + ".csv";
-            bw = new BufferedWriter(new FileWriter(sblPath));
-            numQuotes = readQuotes(brUrlFH, bw, quoteDataModel);
-         } else {
-            numQuotes = readQuotes(brUrlFH, quoteDataModel);
-         }
-      } catch (IOException ioe) {
-         System.out.println(ioe);
-         numQuotes = 0;
-      } finally {
-         if (brUrlFH != null) {
-            brUrlFH.close();
-            brUrlFH = null;
-         }
-         if (isrUrlFH != null) {
-            isrUrlFH.close();
-            brUrlFH = null;
-         }
-         if (is != null) {
-            is.close();
-            is = null;
-         }
-         if (bw != null) {
-            bw.close();
-            bw = null;
+      if (QuoteDataModel.saveQutoes() && (_dataDir != null)) {
+         String sblPath = _dataDir + sbl.substring(0, 1).toLowerCase()
+               + File.separator + sbl.toLowerCase() + ".csv";
+         bw = new BufferedWriter(new FileWriter(sblPath));
+      }
+
+      try (BufferedReader br =
+            new BufferedReader(new InputStreamReader(url.openStream()))) {
+
+         String inputLine = br.readLine();
+         while ((inputLine = br.readLine()) != null) {
+            Quote quote = null;
+            try {
+               quote = parseQuoteIn(inputLine);
+               quoteDataModel.setQuoteIn(quote);
+               numQuotes++;
+               /*
+                * if (bw != null) { bw.write(inputLine + "\n"); }
+                */ } catch (Exception e) {
+               e.printStackTrace();
+               // just skip it
+            }
+
+            if (numQuotes == QuoteDataModel.getMaxQuotes()) {
+               break;
+            }
          }
       }
       if (numQuotes > 0) {
@@ -98,12 +89,11 @@ public class IoGoogleImpl extends IoJchartBase {
       return retval;
    }
 
-   private int readQuotes(BufferedReader br, QuoteDataModel quoteDataModel)
+   protected int readQuotes(BufferedReader br, QuoteDataModel quoteDataModel)
          throws IOException {
       int numQuotes = 0;
       String inputLine = br.readLine();
       while ((inputLine = br.readLine()) != null) {
-         System.out.println(inputLine);
          Quote quote = null;
          try {
             quote = parseQuoteIn(inputLine);
@@ -126,14 +116,7 @@ public class IoGoogleImpl extends IoJchartBase {
 
    private int readQuotes(BufferedReader brUrlFH, BufferedWriter bw,
          QuoteDataModel quoteDataModel) {
-      // TODO Auto-generated method stub
       return 0;
-   }
-
-   public void init(String cgiDir, String tickerDir, boolean useCgi,
-         boolean isApplet, String dataSource) {
-      // TODO Auto-generated method stub
-
    }
 
    protected Quote parseQuoteIn(String s) throws Exception {
@@ -152,6 +135,44 @@ public class IoGoogleImpl extends IoJchartBase {
       retval.setLow(low);
       retval.setClose(close);
       retval.setVolume(volume);
+      return retval;
+   }
+
+   protected String getEodUrlStr(String sbl, int maxQuotes) {
+      String retval = null;
+      StringBuilder sb = new StringBuilder();
+      String baseUri = JchartModelFacade.getEodBaseUri();
+      String currentDate = getCurDate();
+      StringBuffer endDate = new StringBuffer();
+      endDate.append(currentDate.substring(0, 2)).append("+");
+      endDate.append(currentDate.substring(2, 4)).append("+");
+      endDate.append(currentDate.substring(4, 8)).append("+");
+      // &enddate=Oct+3%2C+2008";
+      String startDate = getStartDate(maxQuotes);
+      sb.append(baseUri).append("?q=")
+         .append(sbl)
+         .append("&startdate=")
+         .append(startDate)
+         .append("&enddate=")
+         .append(endDate.toString())
+         .append("&output=csv");
+      retval = sb.toString();
+      return retval;
+   }
+   
+   private String getStartDate(int maxQuotes) {
+      String retval = null;
+      LocalDateTime localDateTime = LocalDateTime.now();
+      LocalDate today = localDateTime.toLocalDate();
+      LocalDate startDate = today.minusDays(maxQuotes * 2);
+      StringBuilder sb = new StringBuilder();
+      sb.append(startDate.getMonthValue())
+         .append("+")
+         .append(startDate.getMonthValue())
+         .append("+")
+         .append(startDate.getYear());
+      retval = sb.toString();
+      
       return retval;
    }
 

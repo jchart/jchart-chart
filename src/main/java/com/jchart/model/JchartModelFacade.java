@@ -6,6 +6,10 @@ public class JchartModelFacade implements java.io.Serializable {
    private static final long serialVersionUID = 1L;
 
    private static Properties _jchartProps;
+   
+   public static String getJchartProperty(String key) {
+      return _jchartProps.getProperty(key);
+   }
 
    public static void setVolMountain(JchartComposite jchartComposite) {
       if (jchartComposite.getPlotRange()
@@ -60,8 +64,8 @@ public class JchartModelFacade implements java.io.Serializable {
       return _jchartProps.getProperty("copyright");
    }
 
-   public static String getEodDomain() {
-      return _jchartProps.getProperty("eodDomain");
+   public static String getEodBaseUri() {
+      return _jchartProps.getProperty("IoFactory.eodBaseUri");
    }
 
    public static void setJchartProps(Properties jchartProps) {

@@ -55,7 +55,7 @@ public class JchartInitializer {
          if (_isApplet) {
             IoFactory.init(_jchartProps.getProperty("IoFactoryWeb"));
          } else {
-            IoFactory.init(_jchartProps.getProperty("IoFactoryPsr"));
+            IoFactory.init(_jchartProps.getProperty("IoFactory.class"));
          }
       } catch (Exception e) {
          throw new RuntimeException(e);

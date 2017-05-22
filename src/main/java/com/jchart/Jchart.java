@@ -6,6 +6,7 @@ import com.jchart.io.TickerListener;
 import com.jchart.io.TickerRequest;
 import com.jchart.model.InitParmParser;
 import com.jchart.model.JchartComposite;
+import com.jchart.model.JchartModelFacade;
 import com.jchart.view.client.FrmJchart;
 import com.jchart.view.client.PnlJchart;
 
@@ -43,7 +44,7 @@ public class Jchart implements TickerListener, JchartFrameDestroyer {
       TickerRequest tickerRequest = new TickerRequest(_jchartComposite, this);
       String ticker = _jchartComposite.getJchartRequest().getTicker();
       _jchartComposite.getQuoteDataModel().setLiveQuote();
-      tickerRequest.requestBlock("^GSPC");
+      tickerRequest.requestBlock(JchartModelFacade.getJchartProperty("startup.ticker"));
       initPanel();
    }
 
