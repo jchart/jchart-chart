@@ -24,7 +24,7 @@ public class TestYahooQuoteRetriever {
       quotes = retriever.getRemoteQuotes("AA", 25);
       Assert.assertEquals(25, quotes.size());
       quotes.forEach(System.out::println);
-      retriever.saveRemoteQuotes("AA", 2600, "/home/paul/_/aa.csv");
+      retriever.saveRemoteQuotes("AA", 2600, "/tmp/aa.csv");
    }
 
 }
