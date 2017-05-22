@@ -80,10 +80,10 @@ public class TickerRequest implements Runnable {
          if (_quoteDataModel.isLiveQuote()) {
             _quoteDataModel.liveQuote();
          }
-         _tickerListener.requestComplete(_tickerFound);
       } catch (Exception e) {
          e.printStackTrace();
       }
+      _tickerListener.requestComplete(_tickerFound);
 
    }
 
