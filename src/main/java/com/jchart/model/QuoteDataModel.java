@@ -14,7 +14,7 @@ public class QuoteDataModel {
    private static boolean _isLocal;
    private static boolean _saveQuotes;
    private int _numRsQuotes;
-   private String _rsSymbol = "_SPX";
+   private String _rsSymbol;
    private static int _maxQuotes;
    private boolean _isIntraday;
    private int _numQuotes;
@@ -289,7 +289,7 @@ public class QuoteDataModel {
             _rsQuotes[_numQuotes].setLow(quote.getLow());
             _quotes[_numQuotes].setClose(quote.getClose());
             _rsQuotes[_numQuotes].setVolume(quote.getVolume());
-            _numQuotes += 1;
+ //           _numQuotes += 1;
          }
       } else {
          _tickerConame = _ticker + " "
@@ -458,6 +458,10 @@ public class QuoteDataModel {
 
    public String getRsSymbol() {
       return _rsSymbol;
+   }
+
+   public void setRsSymbol(String rsSymbol) {
+      _rsSymbol = rsSymbol;
    }
 
    public static boolean isLocal() {

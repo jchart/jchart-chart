@@ -44,6 +44,7 @@ public class Jchart implements TickerListener, JchartFrameDestroyer {
       TickerRequest tickerRequest = new TickerRequest(_jchartComposite, this);
       String ticker = _jchartComposite.getJchartRequest().getTicker();
       _jchartComposite.getQuoteDataModel().setLiveQuote();
+      _jchartComposite.getQuoteDataModel().setRsSymbol(JchartModelFacade.getJchartProperty("rs.ticker"));
       tickerRequest.requestBlock(JchartModelFacade.getJchartProperty("startup.ticker"));
       initPanel();
    }

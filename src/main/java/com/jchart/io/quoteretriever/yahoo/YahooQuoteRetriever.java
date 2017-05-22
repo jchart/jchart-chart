@@ -20,7 +20,6 @@ import java.util.concurrent.TimeUnit;
 import com.jchart.io.quoteretriever.IQuoteRetriever;
 import com.jchart.model.Quote;
 import com.jchart.model.QuoteDataModel;
-import com.jchart.util.FormatUtils;
 
 /**
  * @author <a href="mailto:paul.russo@jchart.com>Paul Russo</a>
