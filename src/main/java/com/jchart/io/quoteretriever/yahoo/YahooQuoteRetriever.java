@@ -230,8 +230,8 @@ public class YahooQuoteRetriever implements IQuoteRetriever {
       float open = new Float(st.nextToken()).floatValue();
       float hi = new Float(st.nextToken()).floatValue();
       float low = new Float(st.nextToken()).floatValue();
-      float close = new Float(st.nextToken()).floatValue();
       float adjClose = new Float(st.nextToken()).floatValue();
+      float close = new Float(st.nextToken()).floatValue();
       long volume = new Float(st.nextToken()).longValue();
       retval.setDate(date);
       retval.setOpen(open);
