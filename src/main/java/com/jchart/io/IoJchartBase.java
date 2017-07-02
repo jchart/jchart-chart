@@ -171,7 +171,7 @@ public abstract class IoJchartBase
          mm = '0' + mm;
       }
 
-      return dd + mm + yyyy;
+      return mm + dd + yyyy;
    }
 
    private boolean getIntraDayQuotes(String sbl,
