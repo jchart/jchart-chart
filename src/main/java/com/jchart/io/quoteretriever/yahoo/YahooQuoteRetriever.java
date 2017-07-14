@@ -226,12 +226,13 @@ public class YahooQuoteRetriever implements IQuoteRetriever {
    private Quote parseQuoteIn(String s) throws Exception {
       Quote retval = new Quote();
       StringTokenizer st = new StringTokenizer(s, ",");
+      // Date,Open,High,Low,Close,Adj Close,Volume
       Date date = _downloadDateFmt.parse(st.nextToken());
       float open = new Float(st.nextToken()).floatValue();
       float hi = new Float(st.nextToken()).floatValue();
       float low = new Float(st.nextToken()).floatValue();
-      float adjClose = new Float(st.nextToken()).floatValue();
       float close = new Float(st.nextToken()).floatValue();
+      float adjClose = new Float(st.nextToken()).floatValue();
       long volume = new Float(st.nextToken()).longValue();
       retval.setDate(date);
       retval.setOpen(open);
