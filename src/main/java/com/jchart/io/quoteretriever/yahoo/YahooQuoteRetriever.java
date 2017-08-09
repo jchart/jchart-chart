@@ -34,6 +34,7 @@ public class YahooQuoteRetriever implements IQuoteRetriever {
    private static final String SESSION_URL = "https://finance.yahoo.com";
    private static final String CRUMB_URL = "https://query1.finance.yahoo.com/v1/test/getcrumb";
    private static final String DOWNLOAD_URL = "https://query1.finance.yahoo.com/v7/finance/download/";
+   private static final String SET_COOKIE = "set-cookie";
    
    @Override
    public List<Quote> getLocalQuotes(BufferedReader br, int maxQuotes) throws Exception {
@@ -209,7 +210,7 @@ public class YahooQuoteRetriever implements IQuoteRetriever {
       URLConnection connection = new URL(SESSION_URL)
             .openConnection();
       Map<String,List<String>> map = connection.getHeaderFields();
-      List<String> cookies = map.get("Set-Cookie");
+      List<String> cookies = map.get(SET_COOKIE);
       if (cookies != null) {
          retval = cookies.get(0);
       }
