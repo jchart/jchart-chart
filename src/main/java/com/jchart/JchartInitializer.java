@@ -38,6 +38,13 @@ public class JchartInitializer {
    }
 
    private void init() {
+      String apikey = System.getProperty("apikey");
+      if (apikey == null) {
+         System.out.println("Missing the -Dapikey= parameter");
+         System.out.println("Get the apikey from here: https://www.alphavantage.co/support/#api-key");
+         System.out.println("Then run: java -Dapikey=YOUR_APIKEY -jar jchart-chart.jar");
+         System.exit(-1);
+      }
       try {
          if (_jchartProps == null) {
             _jchartProps = IoJchartBase.loadProperties(getClass(),
@@ -48,6 +55,7 @@ public class JchartInitializer {
          destroy();
          return;
       }
+      _jchartProps.setProperty("alphavantage.apikey",apikey);
       JchartModelFacade.setJchartProps(_jchartProps);
 
       try {
@@ -64,7 +72,7 @@ public class JchartInitializer {
       System.out.println("** Jchart Startup - Version "
             + _jchartProps.getProperty("Version") + " **");
       _initParmParser.init();
-      new ConameFactory().init();
+      // new ConameFactory().init();
       _initParmParser.parse(_jchartComposite);
       List<String> tickerList = _initParmParser.getTickerList();
       if (tickerList.isEmpty()) {

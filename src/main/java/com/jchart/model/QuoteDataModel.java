@@ -4,11 +4,9 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
-import com.jchart.io.factory.impl.TickerConame;
 import com.jchart.livequote.LiveQuote;
 import com.jchart.livequote.LiveQuoteRequest;
 import com.jchart.livequote.LiveQuoteRequestFactory;
-import com.jchart.livequote.yhoo.YhooLiveQuoteRequest;
 
 public class QuoteDataModel {
    private static boolean _isLocal;
@@ -230,9 +228,7 @@ public class QuoteDataModel {
          copyQuotes();
       }
       resetQuotesIn();
-      if (!isLiveQuote()) {
-         _tickerConame = new TickerConame().get(_ticker);
-      }
+      _tickerConame = _ticker;
    }
 
    public void liveQuote() {
@@ -241,11 +237,7 @@ public class QuoteDataModel {
       }
       LiveQuote liveQuote = null;
       try {
-         LiveQuoteRequest liveQuoteRequest = LiveQuoteRequestFactory
-               .getLiveQuoteRequest(YhooLiveQuoteRequest.class);
-         liveQuote = liveQuoteRequest.getLiveQuote(_ticker);
          if (liveQuote == null) {
-            _tickerConame = new TickerConame().get(_ticker);
             return;
          }
          _tickerConame = liveQuote.getConame();
@@ -473,12 +465,12 @@ public class QuoteDataModel {
 
    }
 
-   public static void setSaveQuotes() {
-      _saveQuotes = true;
+   public static void setSaveQuotes(boolean b) {
+      _saveQuotes = b;
 
    }
 
-   public static boolean saveQutoes() {
+   public static boolean getSaveQuotes() {
       return _saveQuotes;
    }
 

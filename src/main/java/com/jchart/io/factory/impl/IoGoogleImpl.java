@@ -54,7 +54,7 @@ public class IoGoogleImpl extends IoJchartBase {
       String urlString = getEodUrlStr(sbl, QuoteDataModel.getMaxQuotes());
       URL url = new URL(urlString.toString());
       BufferedWriter bw = null;
-      if (QuoteDataModel.saveQutoes() && (_dataDir != null)) {
+      if (QuoteDataModel.getSaveQuotes() && (_dataDir != null)) {
          String sblPath = _dataDir + sbl.substring(0, 1).toLowerCase()
                + File.separator + sbl.toLowerCase() + ".csv";
          bw = new BufferedWriter(new FileWriter(sblPath));

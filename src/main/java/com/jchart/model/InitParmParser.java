@@ -50,7 +50,7 @@ public class InitParmParser {
    public static final String P_MOVINGAVERAGE = "movingAverage";
    public static final String P_EODPERIOD = "eodPeriod";
    private static final String P_USECGI = "useCgi";
-   private static final int MAX_QUOTES = 2600;
+   private static final int MAX_QUOTES = 1300;
 
    public void setAppletParamAccessor(AppletParamAccessor appletParamAccessor) {
       _appletParamAccessor = appletParamAccessor;
